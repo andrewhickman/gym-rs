@@ -26,7 +26,7 @@ rand_pcg = "0.3"
 log = "0.4.11"
 derive-new = "0.7"
 cosyne = { version = "0.3.2", optional = true }
-sdl2 = { version = "0.37", features = ["gfx"] }
+sdl2 = { version = "0.37", default-features = false, features = ["static-link", "use-vcpkg", "gfx"] }
 serde = { version = "1.0", features = ["derive"] }
 derivative = { version = "2.2" }
 nalgebra = "0.33"
@@ -36,3 +36,11 @@ num-traits = "0.2"
 [features]
 default = ["bundled"]
 bundled = ["sdl2/bundled"]
+
+[package.metadata.vcpkg]
+dependencies = ["sdl2", "sdl2-gfx"]
+git = "https://github.com/microsoft/vcpkg"
+rev = "16ee2ec"
+
+[package.metadata.vcpkg.target]
+x86_64-pc-windows-msvc = { triplet = "x64-windows-static-md" }
